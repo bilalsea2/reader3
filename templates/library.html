@@ -20,8 +20,17 @@
     <div class="container">
         <h1>Library</h1>
 
+        <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h2 style="margin-top: 0; font-size: 1.1em; color: #333;">Import Book</h2>
+            <form action="/import" method="post" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
+                <input type="file" name="file" accept=".epub" required style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <button type="submit" class="btn" style="padding: 8px 20px; border: none; cursor: pointer;">Import EPUB</button>
+            </form>
+            <p style="margin-top: 10px; margin-bottom: 0; color: #666; font-size: 0.9em;">Or use the command line: <code>uv run reader3.py &lt;book.epub&gt;</code></p>
+        </div>
+
         {% if not books %}
-            <p>No processed books found. Run <code>reader3.py</code> on an epub first.</p>
+            <p>No processed books found. Import an EPUB file above or run <code>reader3.py</code> on an epub file.</p>
         {% endif %}
 
         <div class="book-grid">

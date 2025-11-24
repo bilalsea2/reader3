@@ -28,6 +28,12 @@ class ChapterContent:
     content: str      # Cleaned HTML with rewritten image paths
     text: str         # Plain text for search/LLM context
     order: int        # Linear reading order
+    id: str
+    href: str
+    title: str
+    content: str
+    text: str
+    order: int
 
 
 @dataclass
@@ -300,8 +306,16 @@ if __name__ == "__main__":
         sys.exit(1)
 
     epub_file = sys.argv[1]
-    assert os.path.exists(epub_file), "File not found."
-    out_dir = os.path.splitext(epub_file)[0] + "_data"
+    assert os.path.exists(epub_file), f"File not found: {epub_file}"
+    
+    library_dir = "library"
+    if not os.path.exists(library_dir):
+        os.makedirs(library_dir)
+        print(f"Created library directory: {library_dir}")
+    
+    # Extract book name from EPUB file (without path and extension)
+    book_basename = os.path.splitext(os.path.basename(epub_file))[0]
+    out_dir = os.path.join(library_dir, book_basename + "_data")
 
     book_obj = process_epub(epub_file, out_dir)
     save_to_pickle(book_obj, out_dir)
